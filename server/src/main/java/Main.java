@@ -11,8 +11,8 @@ public class Main {
         System.out.println("Server Started");
         int port = 7001;
 
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
-            while (true) {
+        while (true) {
+            try (ServerSocket serverSocket = new ServerSocket(port)) {
                 Socket clientSocket = serverSocket.accept();
                 PrintStream out = new PrintStream(clientSocket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
