@@ -3,22 +3,23 @@ import java.net.Socket;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String host = "127.0.0.1";
         int port = 7001;
 
-        while (true) {
             try (Socket clientSocket = new Socket(host, port)) {
-                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                try {
+                    try (PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
+                        try (BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
+                            out.println("Vladislav");
 
-                out.println("Vladislav");
-
-                String response = in.readLine();
-                System.out.println(response);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                            String response = in.readLine();
+                            System.out.println(response);
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
         }
     }
 }
